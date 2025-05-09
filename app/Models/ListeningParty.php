@@ -14,8 +14,8 @@ class ListeningParty extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
-        'started_at' => 'datetime',
-        'ended_at' => 'datetime',
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
     ];
 
     public function episode(): BelongsTo
