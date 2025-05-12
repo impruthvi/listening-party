@@ -24,6 +24,7 @@ new class extends Component {
     isPlaying: false,
     countdownText: '',
     isReady: false,
+    audioMetadataLoaded: false,
     currentTime: 0,
     startTimestamp: {{ $listeningParty->start_time->timestamp }},
     endTimestamp: {{ $listeningParty->end_time ? $listeningParty->end_time->timestamp : 'null' }},
@@ -37,6 +38,7 @@ new class extends Component {
     },
 
     initializeAudioPlayer() {
+        this.audioMetadataLoaded = true;
         this.audio = this.$refs.audioPlayer;
         this.audio.addEventListener('loadedmetadata', () => {
             this.isLoading = false
@@ -164,7 +166,8 @@ new class extends Component {
                     <div class="flex-1 min-w-0">
                         <p class="font-serif text-lg font-semibold text-slate-900">Creating your listening party</p>
                         <p class="mt-1 text-sm text-slate-600">
-                            The {{ config('app.name')  }} room <span class="font-bold"> {{ $listeningParty->name }}</span> is being put
+                            The {{ config('app.name')  }} room <span
+                                class="font-bold"> {{ $listeningParty->name }}</span> is being put
                             together...
                         </p>
                     </div>
@@ -233,15 +236,42 @@ new class extends Component {
                 </div>
             </div>
         </div>
-        <div x-cloak x-show="isLive">
-            <div>{{ $listeningParty->podcast->title }}</div>
-            <div>{{ $listeningParty->episode->title }}</div>
-            <div>Current Time: <span x-text="formatTime(currentTime)"></span></div>
-            <div>Start Time: {{ $listeningParty->start_time }}</div>
-            <div x-show="isLoading">Loading...</div>
-            <x-button x-show="!isReady" class="w-full mt-8" @click="joinAndBeReady()">Join and Be
-                Ready
-            </x-button>
+        <div x-show="isLive" x-cloak class="flex items-center justify-center min-h-screen bg-emerald-50">
+            <div class="w-full max-w-2xl p-6 bg-white rounded-lg shadow-lg">
+                <div class="flex items-center mb-6 space-x-4">
+                    <div class="flex-shrink-0">
+                        <x-avatar src="{{ $listeningParty->episode->podcast->artwork_url }}" size="xl"
+                                  rounded="sm" alt="Podcast Artwork"/>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-lg font-semibold truncate text-slate-900">
+                            {{ $listeningParty->name }}
+                        </p>
+                        <p class="text-sm truncate text-slate-600">
+                            {{ $listeningParty->episode->title }}
+                        </p>
+                        <p class="text-xs tracking-tighter uppercase text-slate-400">
+                            {{ $listeningParty->episode->podcast->title }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-6" x-show="audioMetadataLoaded">
+                    <div class="flex items-center justify-between mb-2">
+                        <span x-text="formatTime(currentTime)" class="text-sm text-slate-600"></span>
+                        <span class="text-sm text-slate-600"> {{ $listeningParty->end_time->format('i:s') }}</span>
+                    </div>
+                    <div class="h-2 rounded-full bg-emerald-100">
+                        <div class="h-2 rounded-full bg-emerald-500"
+                             :style="`width: ${(currentTime / audio.duration) * 100}%`"></div>
+                    </div>
+                </div>
+
+
+                <div class="mt-6" x-show="!isPlaying">
+                    <x-button class="w-full" @click="playAudio()">Join Listening Party</x-button>
+                </div>
+            </div>
         </div>
     @endif
 </div>
