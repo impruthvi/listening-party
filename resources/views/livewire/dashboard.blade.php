@@ -45,7 +45,7 @@ new class extends Component {
     //
 }; ?>
 
-<div class="min-h-screen bg-emerald-50 flex flex-col pt-8">
+<div class="min-h-screen bg-emerald-50 flex flex-col">
     {{-- Top Half: Create New listening Party Form --}}
     <div class="flex-1 flex items-center justify-center p-4">
         <div class="max-w-lg w-full">
@@ -66,7 +66,7 @@ new class extends Component {
     {{--  Bottom Half: Existing Listening Parties  --}}
     <div class="h-1/2 bg-gray-100 p-4 overflow-hidden">
         <div class="max-w-lg mx-auto">
-            <h3 class="text-xl font-semibold mb-4">Ongoing Listening Parties</h3>
+            <h3 class="text-xl font-serif font-bold mb-4">Ongoing Listening Parties</h3>
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="overflow-y-auto max-h-[calc(50vh-8rem)]">
                     @foreach ($listeningParties as $listeningParty)
