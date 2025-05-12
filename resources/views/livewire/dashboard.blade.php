@@ -39,7 +39,11 @@ new class extends Component {
     public function with(): array
     {
         return [
-            'listeningParties' => ListeningParty::where('is_active', true)->with('episode.podcast')->orderBy('start_time', 'asc')->get(),
+            'listeningParties' => ListeningParty::where('is_active', true)
+                ->with('episode.podcast')
+                ->whereNotNull('end_time')
+                ->orderBy('start_time', 'asc')
+                ->get(),
         ];
     }
     //
