@@ -164,7 +164,7 @@ new class extends Component {
                     <div class="flex-1 min-w-0">
                         <p class="font-serif text-lg font-semibold text-slate-900">Creating your listening party</p>
                         <p class="mt-1 text-sm text-slate-600">
-                            The awwd.io room <span class="font-bold"> {{ $listeningParty->name }}</span> is being put
+                            The {{ config('app.name')  }} room <span class="font-bold"> {{ $listeningParty->name }}</span> is being put
                             together...
                         </p>
                     </div>
@@ -175,7 +175,7 @@ new class extends Component {
         <div class="flex items-center justify-center min-h-screen bg-emerald-50">
             <div class="w-full max-w-2xl p-8 mx-8 text-center bg-white rounded-lg shadow-lg">
                 <h2 class="mb-4 font-serif text-2xl font-bold text-slate-900">This listening party has finished 🥲</h2>
-                <p class="mt-2 text-slate-600">The awwd.io room <span
+                <p class="mt-2 text-slate-600">The {{ config('app.name')  }} room <span
                         class="font-bold">{{ $listeningParty->name }}</span> is no longer live.
                 </p>
             </div>
@@ -211,7 +211,7 @@ new class extends Component {
                 </div>
                 <h2 x-show="isReady"
                     class="mt-8 font-serif text-lg tracking-tight text-center text-slate-900 font-bolder">
-                    Ready to start the awwd.io party! Stay tuned. 🫶</h2>
+                    Ready to start the {{ config('app.name')  }} party! Stay tuned. 🫶</h2>
                 <div class="flex items-center justify-end mt-8">
                     <button @click="copyToClipboard();"
                             class="flex items-center justify-center w-auto h-8 px-3 py-1 text-xs bg-white border rounded-md cursor-pointer border-neutral-200/60 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none text-neutral-500 hover:text-neutral-600 group">
